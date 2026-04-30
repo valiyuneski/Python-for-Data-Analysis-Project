@@ -20,18 +20,14 @@ This project demonstrates fundamental data analysis techniques on a car dataset 
 ### 1. Create a virtual environment
 
 ```bash
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate  # On macOS/Linux
 # .venv\Scripts\activate   # On Windows
-```
-
-### 2. Install dependencies
-
-```bash
 pip install -r requirements.txt
+python -m ipykernel install --user --name=.venv
 ```
 
-### 3. Run the notebook
+### 2. Run the notebook
 
 Open `project.ipynb` in Jupyter Notebook, VS Code, or any IDE that supports `.ipynb` files, and run the cells sequentially.
 
