@@ -63,35 +63,42 @@ print("\nEngine Cylinders:\n", group_cyl)
 # -------------------------
 
 # 3.3.1 Histogram: city mpg
-plt.figure()
+plt.figure(figsize=(8, 5))
 df["city mpg"].hist(bins=30)
 plt.title("City MPG Distribution")
 plt.xlabel("City MPG")
 plt.ylabel("Frequency")
+plt.tight_layout()
 plt.savefig('city_mpg_histogram.png')
 plt.close()
 
 # 3.3.2 Bar chart: average MSRP by Vehicle Size
-plt.figure()
+plt.figure(figsize=(8, 5))
 group_vs["MSRP"].plot(kind="bar")
 plt.title("Average MSRP by Vehicle Size")
 plt.ylabel("MSRP")
+plt.tight_layout()
 plt.savefig('msrp_by_vehicle_size.png')
 plt.close()
 
 # 3.3.3 Scatter plot: Engine HP vs MSRP
-plt.figure()
+plt.figure(figsize=(8, 5))
 plt.scatter(df["Engine HP"], df["MSRP"])
 plt.title("Engine HP vs MSRP")
 plt.xlabel("Engine HP")
-plt.ylabel("MSRP")
+plt.ylabel("MSRP (log scale)")
+plt.yscale("log")
+plt.tight_layout()
 plt.savefig('engine_hp_vs_msrp.png')
 plt.close()
 
 # 3.3.4 Boxplot: MSRP by Driven_Wheels
-plt.figure()
+plt.figure(figsize=(10, 6))
 sns.boxplot(x="Driven_Wheels", y="MSRP", data=df)
 plt.title("MSRP Distribution by Driven Wheels")
+plt.ylabel("MSRP (log scale)")
+plt.yscale("log")
+plt.tight_layout()
 plt.savefig('msrp_by_driven_wheels.png')
 plt.close()
 
@@ -106,8 +113,9 @@ corr = df[["Engine HP", "MSRP", "Popularity", "city mpg", "highway MPG"]].corr()
 print("\nCorrelation Matrix:\n", corr)
 
 # Optional: heatmap
-plt.figure()
-sns.heatmap(corr, annot=True, cmap="coolwarm")
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
 plt.title("Correlation Heatmap")
+plt.tight_layout()
 plt.savefig('correlation_heatmap.png')
 plt.close()
