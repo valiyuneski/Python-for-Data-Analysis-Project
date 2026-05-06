@@ -142,9 +142,9 @@
 <div class="card">
 <table>
   <tr><th>Metric</th><th>Engine HP</th><th>MSRP ($)</th><th>Popularity</th><th>Highway MPG</th><th>City MPG</th></tr>
-  <tr><td><strong>Mean</strong></td><td>256.6</td><td>$43,452</td><td>1,569</td><td>26.9</td><td>19.9</td></tr>
-  <tr><td><strong>Median</strong></td><td>240.0</td><td>$31,303</td><td>1,385</td><td>26.0</td><td>18.0</td></tr>
-  <tr><td><strong>Std Dev</strong></td><td>108.5</td><td>$61,347</td><td>1,454</td><td>9.0</td><td>9.2</td></tr>
+  <tr><td><strong>Mean</strong></td><td>256.8</td><td>$43,428</td><td>1,568</td><td>26.5</td><td>19.5</td></tr>
+  <tr><td><strong>Median</strong></td><td>240.0</td><td>$31,250</td><td>1,385</td><td>26.0</td><td>18.0</td></tr>
+  <tr><td><strong>Std Dev</strong></td><td>108.8</td><td>$61,533</td><td>1,452</td><td>7.5</td><td>6.6</td></tr>
 </table>
 <div class="insight" style="margin-top:16px">
   <strong>Key observation:</strong> MSRP has a very high standard deviation ($61K on a $43K mean), indicating a heavily right-skewed distribution driven by ultra-luxury and exotic vehicles. The median ($31K) is a more representative central tendency.
@@ -157,10 +157,10 @@
     <h3>By Driven Wheels</h3>
     <table>
       <tr><th>Type</th><th>Avg MSRP</th><th>Avg Pop.</th></tr>
-      <tr><td>All Wheel Drive</td><td>$59,618</td><td>1,512</td></tr>
+      <tr><td>All Wheel Drive</td><td>$59,397</td><td>1,510</td></tr>
       <tr><td>Four Wheel Drive</td><td>$38,461</td><td>1,760</td></tr>
-      <tr><td>Front Wheel Drive</td><td>$24,774</td><td>1,408</td></tr>
-      <tr><td>Rear Wheel Drive</td><td>$60,283</td><td>1,766</td></tr>
+      <tr><td>Front Wheel Drive</td><td>$24,648</td><td>1,397</td></tr>
+      <tr><td>Rear Wheel Drive</td><td>$60,469</td><td>1,776</td></tr>
     </table>
     <div class="insight" style="margin-top:12px; font-size:0.88rem"><strong>Insight:</strong> RWD and AWD cars command the highest prices. FWD cars are the most affordable and are often mainstream consumer vehicles.</div>
   </div>
@@ -168,9 +168,9 @@
     <h3>By Vehicle Size</h3>
     <table>
       <tr><th>Size</th><th>Avg MSRP</th><th>Avg Pop.</th></tr>
-      <tr><td>Large</td><td>$57,037</td><td>1,899</td></tr>
-      <tr><td>Midsize</td><td>$40,874</td><td>1,457</td></tr>
-      <tr><td>Compact</td><td>$37,686</td><td>1,478</td></tr>
+      <tr><td>Large</td><td>$56,787</td><td>1,906</td></tr>
+      <tr><td>Midsize</td><td>$40,887</td><td>1,452</td></tr>
+      <tr><td>Compact</td><td>$37,774</td><td>1,475</td></tr>
     </table>
     <div class="insight" style="margin-top:12px; font-size:0.88rem"><strong>Insight:</strong> Large vehicles are both the most expensive and most popular — driven by luxury SUVs and full-size trucks.</div>
   </div>
@@ -178,12 +178,14 @@
     <h3>By Engine Cylinders</h3>
     <table>
       <tr><th>Cylinders</th><th>Avg MSRP</th><th>Avg Pop.</th></tr>
+      <tr><td>0</td><td>$34,512</td><td>1,987</td></tr>
       <tr><td>3</td><td>$13,547</td><td>792</td></tr>
-      <tr><td>4</td><td>$25,586</td><td>1,434</td></tr>
-      <tr><td>6</td><td>$36,507</td><td>1,697</td></tr>
+      <tr><td>4</td><td>$25,548</td><td>1,436</td></tr>
+      <tr><td>5</td><td>$22,858</td><td>856</td></tr>
+      <tr><td>6</td><td>$36,491</td><td>1,693</td></tr>
       <tr><td>8</td><td>$65,560</td><td>1,756</td></tr>
       <tr><td>10</td><td>$184,124</td><td>1,830</td></tr>
-      <tr><td>12</td><td>$290,164</td><td>839</td></tr>
+      <tr><td>12</td><td>$290,142</td><td>830</td></tr>
       <tr><td>16</td><td>$1,757,224</td><td>820</td></tr>
     </table>
     <div class="insight" style="margin-top:12px; font-size:0.88rem"><strong>Insight:</strong> Strong positive relationship between cylinder count and price. 16-cylinder vehicles (Bugatti Veyron-class) are extreme outliers.</div>
@@ -208,11 +210,11 @@
     <h3>Key Findings</h3>
     <table style="margin-top:10px">
       <tr><th>Variable Pair</th><th>Correlation</th><th>Strength</th><th>Interpretation</th></tr>
-      <tr><td>city mpg ↔ highway MPG</td><td>+0.886</td><td><span class="corr-strong">Strong ✓</span></td><td>Cars efficient in the city are nearly always efficient on highways — both measure the same underlying fuel efficiency</td></tr>
+      <tr><td>city mpg ↔ highway MPG</td><td>+0.843</td><td><span class="corr-strong">Strong ✓</span></td><td>Cars efficient in the city are nearly always efficient on highways — both measure the same underlying fuel efficiency</td></tr>
       <tr><td>Engine HP ↔ MSRP</td><td>+0.654</td><td><span class="corr-strong">Moderate–Strong ✓</span></td><td>More powerful engines command higher prices, though brand prestige adds noise</td></tr>
-      <tr><td>Engine HP ↔ city mpg</td><td>−0.379</td><td><span class="corr-mod">Moderate ↓</span></td><td>Higher horsepower trades off against fuel efficiency — performance vs economy</td></tr>
-      <tr><td>Engine HP ↔ highway MPG</td><td>−0.392</td><td><span class="corr-mod">Moderate ↓</span></td><td>Same trade-off visible on highways</td></tr>
-      <tr><td>MSRP ↔ city mpg</td><td>−0.174</td><td><span class="corr-weak">Weak ↓</span></td><td>Expensive cars tend to be slightly less fuel-efficient, but luxury EVs weaken this relationship</td></tr>
+      <tr><td>Engine HP ↔ city mpg</td><td>−0.497</td><td><span class="corr-mod">Moderate ↓</span></td><td>Higher horsepower trades off against fuel efficiency — performance vs economy</td></tr>
+      <tr><td>Engine HP ↔ highway MPG</td><td>−0.451</td><td><span class="corr-mod">Moderate ↓</span></td><td>Same trade-off visible on highways</td></tr>
+      <tr><td>MSRP ↔ city mpg</td><td>−0.247</td><td><span class="corr-weak">Weak ↓</span></td><td>Expensive cars tend to be slightly less fuel-efficient, but luxury EVs weaken this relationship</td></tr>
       <tr><td>Popularity ↔ any variable</td><td>≈ 0.00</td><td><span class="corr-weak">None</span></td><td>Popularity is essentially uncorrelated with all numeric features — it reflects brand/marketing dynamics, not vehicle specs</td></tr>
     </table>
   </div>
