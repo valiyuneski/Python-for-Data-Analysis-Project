@@ -72,37 +72,34 @@
 <h2>1 · Data Cleaning</h2>
 
 <h3>1a · Missing Value Treatment</h3>
-<p class="section-intro">Missing values were identified in 5 columns. Each was handled with a strategy appropriate to its distribution and semantics.</p>
+<p class="section-intro">Missing values were identified and handled with appropriate strategies for data integrity.</p>
 <div class="card">
 <table>
-  <tr><th>Column</th><th>Missing</th><th>Strategy</th><th>Rationale</th></tr>
-  <tr><td><code>Engine HP</code></td><td>69</td><td><span class="tag tag-fill">Median per Make</span></td><td>Skewed distribution; grouping by Make preserves brand-level power profiles</td></tr>
-  <tr><td><code>Engine Cylinders</code></td><td>30</td><td><span class="tag tag-fill">Median per Make</span></td><td>Integer-like ordinal; brand groups share cylinder configurations</td></tr>
-  <tr><td><code>Engine Fuel Type</code></td><td>3</td><td><span class="tag tag-mode">Global mode</span></td><td>Only 3 missing; overwhelming majority are gasoline vehicles</td></tr>
-  <tr><td><code>Number of Doors</code></td><td>6</td><td><span class="tag tag-mode">Mode per Vehicle Style</span></td><td>Style dictates door count (e.g. coupes → 2, sedans → 4)</td></tr>
-  <tr><td><code>Market Category</code></td><td>3,742</td><td><span class="tag tag-unknown">Fill "Unknown"</span></td><td>~31% missing — too many to drop; preserves rows, flagged as unknown</td></tr>
+  <tr><th>Column</th><th>Strategy</th><th>Notes</th></tr>
+  <tr><td><code>Engine HP</code></td><td><span class="tag tag-fill">Drop rows</span></td><td>Critical for analysis - removed rows with missing HP values</td></tr>
+  <tr><td><code>Engine Cylinders</code></td><td><span class="tag tag-fill">Drop rows</span></td><td>Critical for analysis - removed rows with missing cylinder values</td></tr>
+  <tr><td><code>Number of Doors</code></td><td><span class="tag tag-fill">Drop rows</span></td><td>Critical for analysis - removed rows with missing door values</td></tr>
+  <tr><td><code>MSRP</code></td><td><span class="tag tag-fill">Drop rows</span></td><td>Critical for analysis - removed rows with missing price values</td></tr>
+  <tr><td><code>Market Category</code></td><td><span class="tag tag-unknown">Fill "unknown"</span></td><td>Preserves rows - too many to drop (31% missing)</td></tr>
+  <tr><td><code>Engine Fuel Type</code></td><td><span class="tag tag-unknown">Fill "unknown"</span></td><td>Preserves rows - minimal missing values</td></tr>
 </table>
 </div>
 
 <h3>1b · Data Type Conversion</h3>
 <div class="card">
 <table>
-  <tr><th>Column</th><th>From</th><th>To</th><th>Notes</th></tr>
-  <tr><td><code>Year</code></td><td>int64</td><td>int</td><td>Already correct — explicit cast confirms integrity</td></tr>
-  <tr><td><code>Engine HP</code></td><td>float64 (with NaN)</td><td>float64</td><td>Kept float to preserve decimal precision after imputation</td></tr>
-  <tr><td><code>Engine Cylinders</code></td><td>float64 (with NaN)</td><td>int</td><td>Cast to int after imputation — cylinders are whole numbers</td></tr>
-  <tr><td><code>Number of Doors</code></td><td>float64 (with NaN)</td><td>int</td><td>Cast to int after imputation</td></tr>
+  <tr><th>Column</th><th>Conversion</th><th>Notes</th></tr>
+  <tr><td><code>Year</code></td><td>int64 → int</td><td>Already correct — explicit cast confirms integrity</td></tr>
 </table>
 </div>
 
 <h3>1c · Year Filter</h3>
 <div class="card">
-  <p>Filtered dataset to <strong>Year ≥ 1995</strong>, removing pre-1995 vehicles.</p>
-  <div class="grid-3" style="margin-top:16px">
-    <div class="stat-card"><div class="label">Raw Rows</div><div class="val">11,914</div></div>
-    <div class="stat-card"><div class="label">Removed (pre-1995)</div><div class="val" style="color:var(--red)">824</div></div>
-    <div class="stat-card"><div class="label">Remaining</div><div class="val" style="color:var(--green)">11,090</div></div>
-  </div>
+ <p>Applied <strong>Year ≥ 1995</strong> filter to focus on modern vehicles.</p>
+ <div class="grid-3" style="margin-top:16px">
+    <div class="stat-card"><div class="label">Dataset Shape</div><div class="val">11,090</div></div>
+    <div class="stat-card"><div class="label">Year Range</div><div class="val">1995 - 2017</div></div>
+ </div>
 </div>
 
 <h3>1d · String Standardization</h3>
@@ -159,31 +156,30 @@
 <h3>3b · Group Analysis</h3>
 <div class="grid-3">
   <div class="card">
-    <h3>By Driven Wheels</h3>
+    <h3>By Driven_Wheels</h3>
     <table>
       <tr><th>Type</th><th>Avg MSRP</th><th>Avg Pop.</th></tr>
-      <tr><td>All Wheel Drive</td><td>$59,397</td><td>1,510</td></tr>
-      <tr><td>Four Wheel Drive</td><td>$38,461</td><td>1,760</td></tr>
-      <tr><td>Front Wheel Drive</td><td>$24,648</td><td>1,397</td></tr>
-      <tr><td>Rear Wheel Drive</td><td>$60,469</td><td>1,776</td></tr>
+      <tr><td>4-Wheel Drive</td><td>$38,461</td><td>1,760</td></tr>
+      <tr><td>All-Wheel Drive</td><td>$59,397</td><td>1,510</td></tr>
+      <tr><td>Front-Wheel Drive</td><td>$24,648</td><td>1,397</td></tr>
+      <tr><td>Rear-Wheel Drive</td><td>$60,469</td><td>1,776</td></tr>
     </table>
-    <div class="insight" style="margin-top:12px; font-size:0.88rem"><strong>Insight:</strong> RWD and AWD cars command the highest prices. FWD cars are the most affordable and are often mainstream consumer vehicles.</div>
+    <div class="insight" style="margin-top:12px; font-size:0.88rem"><strong>Insight:</strong> RWD and AWD cars command highest prices. FWD cars are most affordable and are often mainstream consumer vehicles.</div>
   </div>
   <div class="card">
     <h3>By Vehicle Size</h3>
     <table>
       <tr><th>Size</th><th>Avg MSRP</th><th>Avg Pop.</th></tr>
+      <tr><td>Compact</td><td>$37,774</td><td>1,475</td></tr>
       <tr><td>Large</td><td>$56,787</td><td>1,906</td></tr>
       <tr><td>Midsize</td><td>$40,887</td><td>1,452</td></tr>
-      <tr><td>Compact</td><td>$37,774</td><td>1,475</td></tr>
     </table>
-    <div class="insight" style="margin-top:12px; font-size:0.88rem"><strong>Insight:</strong> Large vehicles are both the most expensive and most popular — driven by luxury SUVs and full-size trucks.</div>
+    <div class="insight" style="margin-top:12px; font-size:0.88rem"><strong>Insight:</strong> Large vehicles are both most expensive and most popular — driven by luxury SUVs and full-size trucks.</div>
   </div>
   <div class="card">
     <h3>By Engine Cylinders</h3>
     <table>
       <tr><th>Cylinders</th><th>Avg MSRP</th><th>Avg Pop.</th></tr>
-      <tr><td>0</td><td>$34,512</td><td>1,987</td></tr>
       <tr><td>3</td><td>$13,547</td><td>792</td></tr>
       <tr><td>4</td><td>$25,548</td><td>1,436</td></tr>
       <tr><td>5</td><td>$22,858</td><td>856</td></tr>
